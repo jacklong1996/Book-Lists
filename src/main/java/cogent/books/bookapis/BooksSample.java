@@ -85,7 +85,7 @@ public class BooksSample {
       Volume.VolumeInfo volumeInfo = volume.getVolumeInfo();
       Volume.SaleInfo saleInfo = volume.getSaleInfo();
       ImageLinks il = volumeInfo.getImageLinks();
-      il.
+      
       System.out.println("==========");
       // Title.
       System.out.println("Title: " + volumeInfo.getTitle());
