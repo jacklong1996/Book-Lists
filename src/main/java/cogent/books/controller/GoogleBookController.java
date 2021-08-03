@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import cogent.books.bookapis.BooksSample;
 import cogent.books.services.BookService;
-import cogent.books.services.GoogleBooksService;
 
 @RestController
 @RequestMapping("/gbooks")

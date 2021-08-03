@@ -30,31 +30,46 @@ public class BookService {
 			return "Book already exists!";
 		}
 		
-		for (Author author: book.getAuthors()) {
+		List<Author> authors = book.getAuthors();
+		//for (Author author: book.getAuthors()) {
+		for (int i = 0; i < authors.size(); i++) {
+			Author author = authors.get(i);
 			Author a1 = aRepo.findByName(author.getName());
 			if ( a1 == null) {
+				System.out.println(author.getName());
 				List<Book> bookList = new ArrayList<Book>();
 				bookList.add(book);
 				author.setBooks(bookList);
-				aRepo.save(author);
+				//aRepo.save(author);
+				authors.set(i, author);
 			} else {
 				a1.addBook(book);
-				aRepo.save(a1);
+				//aRepo.save(a1);
+				authors.set(i, a1);
 			}
 		}
+		book.setAuthors(authors);
 		
-		for (Genre genre: book.getGenre()) {
-			Genre g1 = gRepo.findByName(genre.getName());
-			if (g1 == null) {
-				List<Book> bookList = new ArrayList<Book>();
-				bookList.add(book);
-				genre.setBooks(bookList);
-				gRepo.save(genre);
-			} else {
-				g1.addBook(book);
-				gRepo.save(g1);
+		List<Genre> genres = book.getGenre();
+		//for (Genre genre: book.getGenre()) {
+		if (genres != null && genres.size() > 0) {
+			for (int i = 0; i < genres.size(); i++) {
+				Genre genre = genres.get(i);
+				Genre g1 = gRepo.findByName(genre.getName());
+				if (g1 == null) {
+					List<Book> bookList = new ArrayList<Book>();
+					bookList.add(book);
+					genre.setBooks(bookList);
+					//gRepo.save(genre);
+					genres.set(i, genre);
+				} else {
+					g1.addBook(book);
+					//gRepo.save(g1);
+					genres.set(i, g1);
+				}
 			}
 		}
+		book.setGenre(genres);
 		
 		bRepo.save(book);
 		//bRepo.saveAndFlush(book);

@@ -32,13 +32,13 @@ public class Book implements Serializable {
 	String series;
 	
 	@JsonBackReference
-	@ManyToMany(cascade = CascadeType.MERGE)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "author_id")
 	@Column(name = "AUTHOR")
 	List<Author> authors;
 	
 	@JsonBackReference
-	@ManyToMany(cascade = CascadeType.MERGE)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@Column(name = "GENRE")
 	List<Genre> genre;
 	

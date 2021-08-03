@@ -108,18 +108,25 @@ public class BooksSample {
 	        
 	        java.util.List<String> tempGenres = volumeInfo.getCategories();
 	        java.util.List<Genre> genres = new ArrayList<Genre>();
-	        for (String name : tempGenres) {
-	        	Genre temp = new Genre();
-	        	temp.setName(name);
-	        	temp.addBook(book);
-	        	genres.add(temp);
+	        //System.out.println(genres.size());
+	        if (genres.size() > 0) {
+		        for (String name : tempGenres) {
+		        	Genre temp = new Genre();
+		        	temp.setName(name);
+		        	temp.addBook(book);
+		        	genres.add(temp);
+		        }
+		        book.setGenre(genres);
 	        }
-	        book.setGenre(genres);
 	        
-	        book.setPages(volumeInfo.getPageCount());
-	        book.setDescription(volumeInfo.getDescription());
-	        book.setDate(volumeInfo.getPublishedDate());
-	        book.setCover(il.getThumbnail());
+	        try {
+		        book.setPages(volumeInfo.getPageCount());
+		        book.setDescription(volumeInfo.getDescription());
+		        book.setDate(volumeInfo.getPublishedDate());
+		        book.setCover(il.getThumbnail());
+	        } catch(NullPointerException e) {
+	        	e.printStackTrace();
+	        }
 	        //il.
 	        
 	        System.out.print("Added: " + book.getTitle() +" by: ");
@@ -130,39 +137,6 @@ public class BooksSample {
 	    }
 	    return "Added books to database.";
   }
-  
-
-  /*public static void main(String[] args) {
-    //JsonFactory jsonFactory = JsonFactory.getDefaultInstance();
-	  //JsonFactory jsonFactory = new JsonFactory();
-	  JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
-	  
-    try {
-      // Verify command line parameters.
-      if (args.length == 0) {
-        System.err.println("Usage: BooksSample [--author|--isbn|--title] \"<query>\"");
-        System.exit(1);
-      }
-      // Parse command line parameters into a query.
-      // Query format: "[<author|isbn|intitle>:]<query>"
-      //String prefix = null;
-      String prefix = "inauthor:";
-      String query = "Orson Scott Card";
-
-      try {
-        //queryGoogleBooks(jsonFactory, query);
-    	  query = prefix+query;
-    	  addBooks(jsonFactory, query);
-        // Success!
-        return;
-      } catch (IOException e) {
-        System.err.println(e.getMessage());
-      }
-    } catch (Throwable t) {
-      t.printStackTrace();
-    }
-    System.exit(0);
-  }*/
   
   public String findBooks(String prefix, String search) {
 	  String output = "";
