@@ -119,7 +119,8 @@ public class BooksSample {
 	        book.setPages(volumeInfo.getPageCount());
 	        book.setDescription(volumeInfo.getDescription());
 	        book.setDate(volumeInfo.getPublishedDate());
-	        book.setCover(il.getMedium());
+	        book.setCover(il.getThumbnail());
+	        //il.
 	        
 	        System.out.print("Added: " + book.getTitle() +" by: ");
 	        book.getAuthors().forEach(n -> n.print()); 

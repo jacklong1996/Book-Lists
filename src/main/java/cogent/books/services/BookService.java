@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cogent.books.dao.AuthorJPA;
 import cogent.books.dao.BookJPA;
@@ -14,6 +15,7 @@ import cogent.books.entities.Book;
 import cogent.books.entities.Genre;
 
 @Service
+@Transactional
 public class BookService {
 	@Autowired
 	BookJPA bRepo;
@@ -55,6 +57,7 @@ public class BookService {
 		}
 		
 		bRepo.save(book);
+		//bRepo.saveAndFlush(book);
 		
 		return "Book inserted.";
 	}

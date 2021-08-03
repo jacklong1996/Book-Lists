@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "BOOK")
 public class Book implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "BOOK_ID")
 	int id;
 	@Column(name = "TITLE")
@@ -32,13 +32,13 @@ public class Book implements Serializable {
 	String series;
 	
 	@JsonBackReference
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "author_id")
 	@Column(name = "AUTHOR")
 	List<Author> authors;
 	
 	@JsonBackReference
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.MERGE)
 	@Column(name = "GENRE")
 	List<Genre> genre;
 	
