@@ -1,6 +1,7 @@
 package cogent.books.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -25,12 +26,18 @@ public class Author implements Serializable{
 	@Column(name = "NAME")
 	String name;
 	
-	@JsonBackReference
-	@ManyToMany
+	@JsonManagedReference
+	@ManyToMany(mappedBy = "authors")
 	@Column(name = "BOOKS")
 	List<Book> books;
 	
+	public void print() {
+		System.out.print(name + ", ");
+	}
 	public void addBook(Book book) {
+		if (books == null) {
+			books = new ArrayList<Book>();
+		}
 		books.add(book);
 	}
 

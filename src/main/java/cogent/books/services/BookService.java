@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import cogent.books.dao.AuthorJPA;
 import cogent.books.dao.BookJPA;
@@ -12,6 +13,7 @@ import cogent.books.entities.Author;
 import cogent.books.entities.Book;
 import cogent.books.entities.Genre;
 
+@Service
 public class BookService {
 	@Autowired
 	BookJPA bRepo;
@@ -44,8 +46,8 @@ public class BookService {
 			if (g1 == null) {
 				List<Book> bookList = new ArrayList<Book>();
 				bookList.add(book);
-				g1.setBooks(bookList);
-				gRepo.save(g1);
+				genre.setBooks(bookList);
+				gRepo.save(genre);
 			} else {
 				g1.addBook(book);
 				gRepo.save(g1);
@@ -56,4 +58,5 @@ public class BookService {
 		
 		return "Book inserted.";
 	}
+	
 }

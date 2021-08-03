@@ -1,6 +1,7 @@
 package cogent.books.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "GENRE")
@@ -23,12 +25,15 @@ public class Genre implements Serializable{
 	@Column(name = "name")
 	String name;
 	
-	@JsonBackReference
-	@ManyToMany
+	@JsonManagedReference
+	@ManyToMany(mappedBy = "genre")
 	@Column(name = "books")
 	List<Book> books;
 	
 	public void addBook(Book book) {
+		if (books == null) {
+			books = new ArrayList<Book>();
+		}
 		books.add(book);
 	}
 
