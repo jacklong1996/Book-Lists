@@ -77,7 +77,9 @@ public class BooksSample {
 	    volumesList.setFilter("ebooks");
 
 	    // Execute the query.
+	    volumesList.setMaxResults((long) 20);
 	    Volumes volumes = volumesList.execute();
+	    
 	    if (volumes.getTotalItems() == 0 || volumes.getItems() == null) {
 	      System.out.println("No matches found.");
 	      return "No matches found.";
@@ -108,62 +110,40 @@ public class BooksSample {
 	        
 	        java.util.List<String> tempGenres = volumeInfo.getCategories();
 	        java.util.List<Genre> genres = new ArrayList<Genre>();
-	        if(tempGenres!= null) {
-	        for (String name : tempGenres) {
-	        	Genre temp = new Genre();
-	        	temp.setName(name);
-	        	temp.addBook(book);
-	        	genres.add(temp);
-	        }
-	        }
-	        book.setGenre(genres);
+	        //System.out.println(genres.size());
+	        if (tempGenres!=null) {
+		        for (String name : tempGenres) {
+		        	Genre temp = new Genre();
+		        	temp.setName(name);
+		        	temp.addBook(book);
+		        	genres.add(temp);
+		        }
+		        book.setGenre(genres);
+
+//https://github.com/jacklong1996/Book-Lists-BackEnd.git
 	        
-	        book.setPages(volumeInfo.getPageCount());
-	        book.setDescription(volumeInfo.getDescription());
-	        book.setDate(volumeInfo.getPublishedDate());
-	        book.setCover(il.getMedium());
+	        try {
+		        book.setPages(volumeInfo.getPageCount());
+		        book.setDescription(volumeInfo.getDescription());
+		        book.setDate(volumeInfo.getPublishedDate());
+		        //book.setCover(il.getThumbnail());
+		        book.setCover(il.getMedium());
+	        } catch(NullPointerException e) {
+	        	e.printStackTrace();
+	        }
+	        //il.
 	        
 	        System.out.print("Added: " + book.getTitle() +" by: ");
 	        book.getAuthors().forEach(n -> n.print()); 
 	        System.out.println(" to the db.");
 	        
-	        bs.save(book);
+	        if (book.checkNull())
+	        	bs.save(book);
 	    }
+	        }
 	    return "Added books to database.";
+	    
   }
-  
-
-  /*public static void main(String[] args) {
-    //JsonFactory jsonFactory = JsonFactory.getDefaultInstance();
-	  //JsonFactory jsonFactory = new JsonFactory();
-	  JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
-	  
-    try {
-      // Verify command line parameters.
-      if (args.length == 0) {
-        System.err.println("Usage: BooksSample [--author|--isbn|--title] \"<query>\"");
-        System.exit(1);
-      }
-      // Parse command line parameters into a query.
-      // Query format: "[<author|isbn|intitle>:]<query>"
-      //String prefix = null;
-      String prefix = "inauthor:";
-      String query = "Orson Scott Card";
-
-      try {
-        //queryGoogleBooks(jsonFactory, query);
-    	  query = prefix+query;
-    	  addBooks(jsonFactory, query);
-        // Success!
-        return;
-      } catch (IOException e) {
-        System.err.println(e.getMessage());
-      }
-    } catch (Throwable t) {
-      t.printStackTrace();
-    }
-    System.exit(0);
-  }*/
   
   public String findBooks(String prefix, String search) {
 	  String output = "";
