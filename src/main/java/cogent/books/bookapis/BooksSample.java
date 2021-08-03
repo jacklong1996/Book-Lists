@@ -108,11 +108,13 @@ public class BooksSample {
 	        
 	        java.util.List<String> tempGenres = volumeInfo.getCategories();
 	        java.util.List<Genre> genres = new ArrayList<Genre>();
+	        if(tempGenres!= null) {
 	        for (String name : tempGenres) {
 	        	Genre temp = new Genre();
 	        	temp.setName(name);
 	        	temp.addBook(book);
 	        	genres.add(temp);
+	        }
 	        }
 	        book.setGenre(genres);
 	        

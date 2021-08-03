@@ -43,7 +43,7 @@ public class Book implements Serializable {
 	List<Genre> genre;
 	
 	
-	@Column(name = "DESCRIPTION")
+	@Column(name = "DESCRIPTION", length=10000)
 	String description;
 	@Column(name = "PAGES")
 	int pages;
