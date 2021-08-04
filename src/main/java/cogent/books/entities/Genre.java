@@ -36,6 +36,11 @@ public class Genre implements Serializable{
 		}
 		books.add(book);
 	}
+	
+	public void removeBook(Book book) {
+        this.books.remove(book);
+        book.getAuthors().remove(this);
+    }
 
 	public int getId() {
 		return id;
