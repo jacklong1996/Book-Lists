@@ -113,6 +113,8 @@ public class BooksSample {
 	        java.util.List<String> tempGenres = volumeInfo.getCategories();
 	        java.util.List<Genre> genres = new ArrayList<Genre>();
 	        //System.out.println(genres.size());
+
+
 	        //if (tempGenres.size() > 0) {
 	        if (tempGenres != null) {
 		        for (String name : tempGenres) {
@@ -122,7 +124,8 @@ public class BooksSample {
 		        	genres.add(temp);
 		        }
 		        book.setGenre(genres);
-	        }
+
+//https://github.com/jacklong1996/Book-Lists-BackEnd.git
 	        
 	        try {
 		        book.setPages(volumeInfo.getPageCount());
@@ -143,6 +146,9 @@ public class BooksSample {
 	        	//bs.save(book);
 	        	output.add(book);
 	    }
+
+	        }
+
 	    return output;
   }
   
