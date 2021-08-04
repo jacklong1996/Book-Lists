@@ -77,4 +77,15 @@ public class BookService {
 		return "Book inserted.";
 	}
 	
+	public void delete(Book book) {
+		
+		List<Author> authors = new ArrayList<Author>();
+		List<Genre> genres = new ArrayList<Genre>();
+		book.setAuthors(authors);
+		book.setGenre(genres);
+		bRepo.save(book);
+		
+		bRepo.delete(book);
+	}
+	
 }

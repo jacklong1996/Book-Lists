@@ -61,7 +61,9 @@ public class BooksSample {
   private BookService bs;
   
   
-  private String addBooks(JsonFactory jsonFactory, String query) throws Exception {
+  private java.util.List<Book> addBooks(JsonFactory jsonFactory, String query) throws Exception {
+	  java.util.List<Book> output = new ArrayList<Book>();
+	  
 	  ClientCredentials.errorIfNotSpecified();
 	    
 	    // Set up Books client.
@@ -82,7 +84,7 @@ public class BooksSample {
 	    
 	    if (volumes.getTotalItems() == 0 || volumes.getItems() == null) {
 	      System.out.println("No matches found.");
-	      return "No matches found.";
+	      return output;
 	    }
 	    
 	    for (Volume volume : volumes.getItems()) {
@@ -111,7 +113,10 @@ public class BooksSample {
 	        java.util.List<String> tempGenres = volumeInfo.getCategories();
 	        java.util.List<Genre> genres = new ArrayList<Genre>();
 	        //System.out.println(genres.size());
-	        if (tempGenres!=null) {
+
+
+	        //if (tempGenres.size() > 0) {
+	        if (tempGenres != null) {
 		        for (String name : tempGenres) {
 		        	Genre temp = new Genre();
 		        	temp.setName(name);
@@ -127,7 +132,7 @@ public class BooksSample {
 		        book.setDescription(volumeInfo.getDescription());
 		        book.setDate(volumeInfo.getPublishedDate());
 		        //book.setCover(il.getThumbnail());
-		        book.setCover(il.getMedium());
+		        book.setCover(il.getThumbnail());
 	        } catch(NullPointerException e) {
 	        	e.printStackTrace();
 	        }
@@ -138,30 +143,32 @@ public class BooksSample {
 	        System.out.println(" to the db.");
 	        
 	        if (book.checkNull())
-	        	bs.save(book);
+	        	//bs.save(book);
+	        	output.add(book);
 	    }
+
 	        }
-	    return "Added books to database.";
-	    
+
+	    return output;
   }
   
-  public String findBooks(String prefix, String search) {
-	  String output = "";
+  public java.util.List<Book> findBooks(String prefix, String search) {
+	  java.util.List<Book> output = new ArrayList<Book>();
 	  JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
 	  try {
 		  if (prefix.equals("author")) {
-			  return addBooks(jsonFactory, "inauthor:"+search);
+			  output = addBooks(jsonFactory, "inauthor:"+search);
 		  } else if (prefix.equals("title")) {
-			  return addBooks(jsonFactory, "intitle:"+search);
+			  output = addBooks(jsonFactory, "intitle:"+search);
 		  } else {
-			  return "Not a search type.";
+			  System.out.println( "Not a search type.");
 		  } 
 	  } catch (IOException e) {
 		  e.printStackTrace();
-		  output = e.getMessage();
+		  //output = e.getMessage();
 	  } catch (Throwable t) {
 		  t.printStackTrace();
-		  output = t.getMessage();
+		  //output = t.getMessage();
 	  }
 	  
 	  return output;
