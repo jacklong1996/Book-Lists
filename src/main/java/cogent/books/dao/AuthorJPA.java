@@ -6,4 +6,6 @@ import cogent.books.entities.Author;
 
 public interface AuthorJPA extends JpaRepository<Author, Integer>{
 	public Author findByName(String name);
+	
+	public Author findByAuthorId(int id);
 }

@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import cogent.books.entities.Author;
 import cogent.books.entities.Book;
 
 public interface BookJPA extends JpaRepository<Book, Integer>{
@@ -15,5 +16,7 @@ public interface BookJPA extends JpaRepository<Book, Integer>{
 	
 
 	public Optional<Book> findByTitle(String title);
+	
+	public Author findByName(String name);
 
 }
