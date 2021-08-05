@@ -2,6 +2,7 @@ package cogent.books.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,7 +56,7 @@ public class BookService {
 		if (genres != null && genres.size() > 0) {
 			for (int i = 0; i < genres.size(); i++) {
 				Genre genre = genres.get(i);
-				Genre g1 = gRepo.findByName(genre.getName());
+				Genre g1 = gRepo.findByName(genre.getName()).get();
 				if (g1 == null) {
 					List<Book> bookList = new ArrayList<Book>();
 					bookList.add(book);
@@ -86,6 +87,30 @@ public class BookService {
 		bRepo.save(book);
 		
 		bRepo.delete(book);
+	}
+	
+	public Book findById(int id) {
+		Optional<Book> book = bRepo.findById(id);
+		
+		return book.get();
+	}
+	
+	public List<Book> findAll() {
+		List<Book> books = bRepo.findAll();
+		
+		return books;
+	}
+	
+	public Book findByTitle(String title) {
+		Optional<Book> book = bRepo.findByTitle(title);
+		
+		return book.get();
+	}
+	
+	public List<Book> findByGenre(String name) {
+		Optional<Genre> genre = gRepo.findByName(name);
+		
+		return genre.get().getBooks();
 	}
 	
 }
