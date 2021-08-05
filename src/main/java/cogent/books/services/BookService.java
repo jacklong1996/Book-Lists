@@ -84,7 +84,6 @@ public class BookService {
 		book.setAuthors(authors);
 		book.setGenre(genres);
 		bRepo.save(book);
-		
 		bRepo.delete(book);
 	}
 	
