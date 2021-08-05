@@ -1,5 +1,6 @@
 package cogent.books.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,33 @@ public class BookController {
 	
 	@GetMapping("/delete")
 	public String deleteBookEntry(@RequestParam("id") int id) {
-		Optional<Book> book = bRepo.findById(id);
+		Book book = bServe.findById(id);
 		//bRepo.deleteById(id);
-		bServe.delete(book.get());
+		bServe.delete(book);
 		
 		
 		
-		return "Deleted " + book.get().getTitle() + " from the repository";
+		return "Deleted " + book.getTitle() + " from the repository";
+	}
+	
+	@GetMapping("/findall")
+	public List<Book> findAll() {
+		List<Book> books = bServe.findAll();
+		
+		return books;
+	}
+	
+	@GetMapping("/findbytitle")
+	public Book findByTitle(@RequestParam("title") String title) {
+		Book book = bServe.findByTitle(title);
+		
+		return book;
+	}
+	
+	@GetMapping("/findbygenrename")
+	public List<Book> findByGenreName(@RequestParam("name") String name) {
+		List<Book> books = bServe.findByGenre(name);
+		
+		return books;
 	}
 }
