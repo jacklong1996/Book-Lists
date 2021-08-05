@@ -85,7 +85,6 @@ public class BookService {
 		book.setAuthors(authors);
 		book.setGenre(genres);
 		bRepo.save(book);
-		
 		bRepo.delete(book);
 	}
 	
@@ -113,4 +112,17 @@ public class BookService {
 		return genre.get().getBooks();
 	}
 	
+	public List<Book> findByName(String name) {
+		Author book = aRepo.findByName(name);
+		return  book.getBooks();
+	}
+	
+	public List<Book> findByAuthorId(int id) {
+		Author book = aRepo.findByAuthorId(id);
+		return  book.getBooks();
+	}
+	public List<Book> findByGenreId(int id) {
+		Genre book = gRepo.findById(id);
+		return  book.getBooks();
+	}
 }

@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import cogent.books.entities.Genre;
 
 public interface GenreJPA extends JpaRepository<Genre, Integer>{
+
 	public Optional<Genre> findByName(String name);
 	
+	public Genre findById(int id);
 }
