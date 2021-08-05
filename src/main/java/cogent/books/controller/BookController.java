@@ -27,17 +27,39 @@ public class BookController {
 
 	@GetMapping("/delete")
 	public String deleteBookEntry(@RequestParam("id") int id) {
-		Optional<Book> book = bRepo.findById(id);
-		// bRepo.deleteById(id);
-		bServe.delete(book.get());
 
-		return "Deleted " + book.get().getTitle() + " from the repository";
+		Book book = bServe.findById(id);
+		//bRepo.deleteById(id);
+		bServe.delete(book);
+		
+		
+		
+		return "Deleted " + book.getTitle() + " from the repository";
 	}
-
-	@GetMapping("/findAll")
+	
+	@GetMapping("/findall")
 	public List<Book> findAll() {
-		return bRepo.findAll();
+		List<Book> books = bServe.findAll();
+		
+		return books;
 	}
+	
+	@GetMapping("/findbytitle")
+	public Book findByTitle(@RequestParam("title") String title) {
+		Book book = bServe.findByTitle(title);
+		
+		return book;
+	}
+	
+	@GetMapping("/findbygenrename")
+	public List<Book> findByGenreName(@RequestParam("name") String name) {
+		List<Book> books = bServe.findByGenre(name);
+		
+		return books;
+
+	}
+
+	
 
 	@GetMapping("/title")
 	public String findTitle(Book book) {
