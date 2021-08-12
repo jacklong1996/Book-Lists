@@ -27,8 +27,6 @@ public class BookController {
 		//bRepo.deleteById(id);
 		bServe.delete(book);
 		
-		
-		
 		return "Deleted " + book.getTitle() + " from the repository";
 	}
 	
