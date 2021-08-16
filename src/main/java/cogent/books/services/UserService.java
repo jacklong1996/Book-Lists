@@ -54,4 +54,42 @@ public class UserService {
 			return "Couldn't find either user or book";
 		}
 	}
+	
+	public User findById(int uid) {
+		return uRepo.getById(uid);
+	}
+	
+	public String addToWant(int uid, int bid) {
+		User u = uRepo.getById(uid);
+		for (Book b : u.getWant()) {
+			if (b.getId() == bid)
+				return "Book was already in list";
+		}
+		for (Book b: u.getRead()) {
+			if (b.getId() == bid) {
+				u.removeBookRead(b);
+			}
+		}
+		Book b = bRepo.getById(bid);
+		u.addBooktoWant(b);
+		uRepo.save(u);
+		return "Added book to want to read list";
+	}
+	
+	public String addToRead(int uid, int bid) {
+		User u = uRepo.getById(uid);
+		for (Book b : u.getRead()) {
+			if (b.getId() == bid)
+				return "Book was already in list";
+		}
+		for (Book b: u.getWant()) {
+			if (b.getId() == bid) {
+				u.removeBookWant(b);
+			}
+		}
+		Book b = bRepo.getById(bid);
+		u.addBooktoRead(b);
+		uRepo.save(u);
+		return "Added book to want to read list";
+	}
 }

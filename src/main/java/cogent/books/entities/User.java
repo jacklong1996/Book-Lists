@@ -29,7 +29,7 @@ import javax.validation.constraints.Size;
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		@Column(name="USER_ID")
-		private Long id;
+		private int id;
 
 		@NotBlank
 		@Size(max = 20)
@@ -89,11 +89,11 @@ import javax.validation.constraints.Size;
 			this.name = name;
 		}
 
-		public Long getId() {
+		public int getId() {
 			return id;
 		}
 
-		public void setId(Long id) {
+		public void setId(int id) {
 			this.id = id;
 		}
 

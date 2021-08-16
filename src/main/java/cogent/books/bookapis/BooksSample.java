@@ -138,9 +138,9 @@ public class BooksSample {
 	        }
 	        //il.
 	        
-	        System.out.print("Added: " + book.getTitle() +" by: ");
-	        book.getAuthors().forEach(n -> n.print()); 
-	        System.out.println(" to the db.");
+//	        System.out.print("Added: " + book.getTitle() +" by: ");
+//	        book.getAuthors().forEach(n -> n.print()); 
+//	        System.out.println(" to the db.");
 	        
 	        if (book.checkNull())
 	        	//bs.save(book);
