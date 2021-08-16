@@ -73,6 +73,7 @@ public class BookService {
 		book.setGenre(genres);
 		
 		bRepo.save(book);
+		bRepo.flush();
 		//bRepo.saveAndFlush(book);
 		
 		return "Book inserted.";
